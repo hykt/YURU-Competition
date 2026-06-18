@@ -58,11 +58,13 @@ p {
 }
 
 .photo img.clickable {
-  cursor: pointer;
+  cursor: pointer;  
+  transition: opacity 0.3s ease, transform 0.2s ease;
 }
 
 .photo img.clickable:hover {
-  opacity: 0.9;
+/*  opacity: 0.9; */
+  transform: scale(1.01);
 }
 
 /* キャプション */
@@ -242,10 +244,18 @@ RA協議会・スキルプログラム専門委員会は、2026年5月22日(金)
 function rotateImage(img) {
   const images = img.dataset.images.split(",");
   let currentIndex = images.indexOf(img.src.split("/").pop());
-
   let nextIndex = (currentIndex + 1) % images.length;
 
-  img.src = images[nextIndex];
+  // フェードアウト
+  img.style.opacity = 0;
+
+  setTimeout(() => {
+    // 画像切替
+    img.src = images[nextIndex];
+
+    // フェードイン
+    img.style.opacity = 1;
+  }, 200);  // ← フェード時間（ミリ秒）
 }
 </script>
 
